@@ -20,8 +20,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <a href="https://logospng.org/download/laravel/logo-laravel-1024.png">
-                <img src="https://logospng.org/download/laravel/logo-laravel-icon-1024.png" width="100"
-                    alt="">
+                <img src="/logo-kkn-05-transparent.png" width="100" alt="">
             </a>
         </div>
 

@@ -9,13 +9,27 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
-            {{-- <h1 class="text-xl font-medium text-gray-800">Sistem Informasi</h1> --}}
+            <h1 class="text-xl font-medium text-gray-800">Simanajemen-KKN</h1>
         </div>
 
         <div class="flex items-center space-x-2 md:space-x-4 relative" x-data="{ open: false }">
 
+            {{-- Messages Icon --}}
+            <div class="relative">
+                <a href="{{ route('kotak-pesan.index') }}">
+                    <button class="p-2 rounded-full hover:bg-gray-100 relative focus:outline-none">
+                        <!-- Messages Icon (Kotak) -->
+                        <i class="fi fi-rs-messages text-lg leading-none relative top-0.5 h-6 w-6 text-gray-500"></i>
+
+                        <!-- Red Dot Notification -->
+                        <span
+                            class="absolute top-[-1px] right-[-2px] text-red-500 font-semibold">{{ $pesan }}</span>
+                    </button>
+                </a>
+            </div>
+
             {{-- Notifications Icon --}}
-            <div x-data="{ open: false }" class="relative">
+            {{-- <div x-data="{ open: false }" class="relative">
                 <button @click="open = !open" class="p-2 rounded-full hover:bg-gray-100 relative focus:outline-none">
                     <!-- Bell Icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
@@ -62,16 +76,23 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             <!-- User Menu -->
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open"
                     class="flex items-center border-2 border-indigo-100 space-x-2 p-2 rounded-full hover:bg-indigo-100 focus:outline-none">
                     <div class="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                        <img src="https://i.pravatar.cc/100" alt="User profile" class="w-full h-full object-cover">
+                        @if (Auth::user()->foto == 'profile.png')
+                            <img src="/profile.png" alt="User profile" class="w-full h-full object-cover">
+                        @else
+                            <img src="{{ asset('storage/' . Auth::user()->foto) }}" alt="User profile"
+                                class="w-full h-full object-cover">
+                        @endif
                     </div>
-                    <span class="text-gray-700 font-medium hidden md:inline">{{ Auth::user()->nama_user }}</span>
+                    @if (auth()->check())
+                        <span class="text-gray-700 font-medium hidden md:inline">{{ Auth::user()->name }}</span>
+                    @endif
                 </button>
 
                 <!-- Dropdown Menu -->
@@ -79,8 +100,11 @@
                     class="absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden">
                     <!-- User Info Section -->
                     <div class="px-4 py-3 border-b border-gray-200 bg-gray-200 text-center">
-                        <div class="font-medium text-gray-900">{{ Auth::user()->nama_user }}</div>
-                        <div class="text-sm text-gray-500 truncate">{{ Auth::user()->role->nama_role ?? 'User' }}</div>
+                        @if (auth()->check())
+                            <div class="font-medium text-gray-900">{{ Auth::user()->name }}</div>
+                            <div class="text-sm text-gray-500 truncate">{{ Auth::user()->role }}
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Menu Items with Icons -->

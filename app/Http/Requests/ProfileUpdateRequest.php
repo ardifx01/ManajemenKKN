@@ -16,7 +16,7 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_user' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => [
                 'required',
                 'string',
@@ -26,6 +26,16 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
             'telepon' => ['nullable', 'string', 'max:15'],
+
+            // Validasi untuk upload foto dan tanda tangan
+            'foto' => ['nullable', 'image', 'max:2048'], // maksimal 2MB
+            'ttd' => ['nullable', 'image', 'max:2048'],
+
+            // Validasi untuk sosial media (optional)
+            'instagram' => ['nullable', 'url', 'max:255'],
+            'tiktok' => ['nullable', 'url', 'max:255'],
+            'facebook' => ['nullable', 'url', 'max:255'],
+            'web' => ['nullable', 'url', 'max:255'],
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Distributor extends Model
+class Notulensi extends Model
 {
     protected $guarded = ['id'];
 }

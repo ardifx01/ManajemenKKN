@@ -13,12 +13,20 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_user');
+            $table->string('name');
+            $table->string('foto')->default('profile.png');
+            $table->enum('prodi', ['Manajemen Informatika', 'Manajemen Pemasaran', 'Manajemen Keuangan & Perbankan', 'Administrasi Bisnis'])->nullable();
+            $table->foreignId('jabatan_id')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('telepon')->nullable();
-            $table->enum('role', ['administrator', 'operator'])->default('operator');
+            $table->enum('role', ['admin', 'pembimbing', 'ketua', 'wakil', 'bendahara', 'sekretaris', 'user'])->default('user');
+            $table->text('ttd')->nullable();
+            $table->text('instagram')->nullable();
+            $table->text('tiktok')->nullable();
+            $table->text('facebook')->nullable();
+            $table->text('web')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

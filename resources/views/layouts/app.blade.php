@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="shortcut icon" href="{{ asset('storage/' . $profile->logo) }}" type="image/x-icon">
     {{-- Icon FlatIcon --}}
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-straight/css/uicons-regular-straight.css'>
@@ -24,9 +25,8 @@
         <div id="sidebar"
             class="fixed md:static w-64 bg-white h-full border-r border-gray-200 z-30 transition-transform duration-300 ease-in-out -translate-x-full md:translate-x-0">
 
-
             <!-- Sidebar -->
-            @include('layouts.sidebar')
+            @include('layouts.sidebar', ['profile' => $profile])
         </div>
 
         <!-- Main Content -->
@@ -107,6 +107,40 @@
             });
         });
     </script>
+
+    {{-- Handle Modal Add saat validasi error --}}
+    @if (session('add'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const addModal = document.getElementById('addModal');
+                if (addModal) {
+                    addModal.classList.remove('hidden');
+
+                    // Tambahkan ini untuk scroll ke modal jika perlu
+                    addModal.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        </script>
+    @endif
+
+    {{-- Handle Modal Edit saat validasi error --}}
+    @if (session('edit_id'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const editModal = document.getElementById(`editModal${@json(session('edit_id'))}`);
+                if (editModal) {
+                    editModal.classList.remove('hidden');
+
+                    // Tambahkan ini untuk scroll ke modal jika perlu
+                    editModal.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        </script>
+    @endif
 
     @stack('js')
 

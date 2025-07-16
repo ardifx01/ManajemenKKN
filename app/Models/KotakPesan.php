@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pembayaran extends Model
+class KotakPesan extends Model
 {
     protected $guarded = ['id'];
 }

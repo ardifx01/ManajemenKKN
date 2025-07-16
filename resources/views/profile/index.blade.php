@@ -20,31 +20,106 @@
         <!-- Card 1: Profile Information -->
         <div class="p-6 border-b border-gray-200">
             <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
-            <p class="mt-1 text-sm text-gray-600">Update your account's profile information and email address.</p>
 
-            <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+            <form method="post" action="{{ route('profile.update') }}" enctype="multipart/form-data"
+                class="mt-6 space-y-6">
                 @csrf
                 @method('patch')
 
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Foto Profil -->
+                    <div class="flex items-start gap-4">
+                        @if ($user->foto == 'profile.png')
+                            <div
+                                class="w-24 h-24 rounded-full bg-gray-100 border flex items-center justify-center text-gray-400 text-sm">
+                                <img src="/profile.png" width="100" alt="">
+                            </div>
+                        @else
+                            <img src="{{ asset('storage/' . $user->foto) }}" alt="Profile Photo"
+                                class="w-24 h-24 rounded-full object-cover border">
+                        @endif
+
+                        <div class="flex-1">
+                            <x-label for="foto" :value="__('Profile Photo')" />
+                            <input type="file" name="foto" id="foto" accept="image/*"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200" />
+                            <x-error-message for="foto" />
+                        </div>
+                    </div>
+                </div>
+
                 <div>
-                    <x-label for="nama_user" :value="__('Full Name')" />
-                    <x-text-input id="nama_user" name="nama_user" type="text" class="mt-1 block w-full"
-                        :value="old('nama_user', $user->nama_user)" required autofocus autocomplete="name" />
-                    <x-error-message class="mt-2" :messages="$errors->get('nama_user')" />
+                    <x-label for="name" :value="__('Full Name')" />
+                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
+                        :value="old('name', $user->name)" required autofocus autocomplete="name" />
+                    <x-error-message for="name" />
                 </div>
 
                 <div>
                     <x-label for="email" :value="__('Email')" />
                     <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
                         :value="old('email', $user->email)" required autocomplete="email" />
-                    <x-error-message class="mt-2" :messages="$errors->get('email')" />
+                    <x-error-message for="email" />
                 </div>
 
                 <div>
                     <x-label for="telepon" :value="__('Phone Number')" />
                     <x-text-input id="telepon" name="telepon" type="number" class="mt-1 block w-full"
                         :value="old('telepon', $user->telepon)" autocomplete="tel" />
-                    <x-error-message class="mt-2" :messages="$errors->get('telepon')" />
+                    <x-error-message for="telepon" />
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Tanda Tangan -->
+                    <div class="flex items-start gap-4">
+                        @if ($user->ttd)
+                            <img src="{{ asset('storage/' . $user->ttd) }}" alt="Signature"
+                                class="w-32 h-auto border rounded">
+                        @else
+                            <div
+                                class="w-32 h-20 border rounded bg-gray-100 flex items-center justify-center text-gray-400 text-sm">
+                                No Signature
+                            </div>
+                        @endif
+
+                        <div class="flex-1">
+                            <x-label for="ttd" :value="__('Digital Signature')" />
+                            <input type="file" name="ttd" id="ttd" accept="image/*"
+                                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200" />
+                            <x-error-message for="ttd" />
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <x-label for="instagram" :value="__('Instagram (optional)')" />
+                        <x-text-input id="instagram" name="instagram" type="url" class="mt-1 block w-full"
+                            :value="old('instagram', $user->instagram)" placeholder="https://instagram.com/username" />
+                        <x-error-message for="instagram" />
+                    </div>
+
+                    <div>
+                        <x-label for="tiktok" :value="__('TikTok (optional)')" />
+                        <x-text-input id="tiktok" name="tiktok" type="url" class="mt-1 block w-full"
+                            :value="old('tiktok', $user->tiktok)" placeholder="https://tiktok.com/@username" />
+                        <x-error-message for="tiktok" />
+                    </div>
+
+                    <div>
+                        <x-label for="facebook" :value="__('Facebook (optional)')" />
+                        <x-text-input id="facebook" name="facebook" type="url" class="mt-1 block w-full"
+                            :value="old('facebook', $user->facebook)" placeholder="https://facebook.com/username" />
+                        <x-error-message for="facebook" />
+                    </div>
+
+                    <div>
+                        <x-label for="web" :value="__('Website (optional)')" />
+                        <x-text-input id="web" name="web" type="url" class="mt-1 block w-full"
+                            :value="old('web', $user->web)" placeholder="https://yourwebsite.com" />
+                        <x-error-message for="web" />
+                    </div>
                 </div>
 
                 <div class="flex items-center gap-4">
@@ -58,11 +133,10 @@
             </form>
         </div>
 
+
         <!-- Card 2: Update Password -->
         <div class="p-6 border-b border-gray-200">
             <h2 class="text-lg font-medium text-gray-900">Update Password</h2>
-            <p class="mt-1 text-sm text-gray-600">Ensure your account is using a long, random password to stay secure.
-            </p>
 
             <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
                 @csrf
@@ -72,27 +146,37 @@
                     <x-label for="current_password" :value="__('Current Password')" />
                     <x-text-input id="current_password" name="current_password" type="password"
                         class="mt-1 block w-full" autocomplete="current-password" />
-                    <x-error-message class="mt-2" :messages="$errors->updatePassword->get('current_password')" />
+                    {{-- <x-error-message for="password" /> --}}
+                    @error('current_password', 'updatePassword')
+                        <div class="text-red-600 text-sm">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div>
                     <x-label for="password" :value="__('New Password')" />
                     <x-text-input id="password" name="password" type="password" class="mt-1 block w-full"
                         autocomplete="new-password" />
-                    <x-error-message class="mt-2" :messages="$errors->updatePassword->get('password')" />
+                    @error('password', 'updatePassword')
+                        <div class="text-red-600 text-sm">{{ $message }}</div>
+                    @enderror
+
+                    {{-- <x-error-message for="password" /> --}}
                 </div>
 
                 <div>
                     <x-label for="password_confirmation" :value="__('Confirm Password')" />
                     <x-text-input id="password_confirmation" name="password_confirmation" type="password"
                         class="mt-1 block w-full" autocomplete="new-password" />
-                    <x-error-message class="mt-2" :messages="$errors->updatePassword->get('password_confirmation')" />
+                    @error('password_confirmation', 'updatePassword')
+                        <div class="text-red-600 text-sm">{{ $message }}</div>
+                    @enderror
+                    {{-- <x-error-message for="password" /> --}}
                 </div>
 
                 <div class="flex items-center gap-4">
                     <x-btn-primary>Save</x-btn-primary>
 
-                    @if (session('status') === 'password-updated')
+                    @if (session('success') === 'Password berhasil diubah.')
                         <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
                             class="text-sm text-gray-600">Saved.</p>
                     @endif
@@ -101,7 +185,7 @@
         </div>
 
         <!-- Card 3: Delete Account -->
-        <div class="p-6">
+        {{-- <div class="p-6">
             <h2 class="text-lg font-medium text-gray-900">Delete Account</h2>
             <p class="mt-1 text-sm text-gray-600">
                 Once your account is deleted, all of its resources and data will be permanently deleted.
@@ -131,7 +215,7 @@
                         <x-text-input id="password" name="password" type="password" class="mt-1 block w-3/4"
                             placeholder="Password" />
 
-                        <x-error-message class="mt-2" :messages="$errors->userDeletion->get('password')" />
+                        <x-error-message for="password" />
                     </div>
 
                     <div class="mt-6 flex justify-end">
@@ -145,6 +229,6 @@
                     </div>
                 </form>
             </x-modal>
-        </div>
+        </div> --}}
     </div>
 </x-app-layout>

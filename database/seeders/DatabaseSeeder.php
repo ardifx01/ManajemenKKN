@@ -23,19 +23,121 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             [
-                'nama_user' => 'Administrator',
-                'email' => 'administrator@gmail.com',
-                'password' => bcrypt('password'),
-                'telepon'  => '08123456789',
-                'role' => 'administrator'
+                'name' => 'Admin',
+                'email' => 'admin@kkn05.com',
+                'password' => bcrypt('admin@kkn05.com'),
+                'role' => 'admin'
             ],
             [
-                'nama_user' => 'Operator',
-                'email' => 'operator@gmail.com',
+                'name' => 'Verra Rosyalia Widya Sofyan. S.E., M.M',
+                'email' => 'pembimbing@kkn05.com',
                 'password' => bcrypt('password'),
-                'telepon'  => '08123456789',
-                'role' => 'operator'
-            ]
+                'role' => 'pembimbing'
+            ],
+            [
+                'name' => 'Hervian Ervansyah',
+                'email' => 'hervian@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'ketua'
+            ],
+            [
+                'name' => 'Fahriza Triputra',
+                'email' => 'fahriza@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'wakil'
+            ],
+            [
+                'name' => 'Zalva Mulya Syaripa',
+                'email' => 'zalva@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'bendahara'
+            ],
+            [
+                'name' => 'Destiyani',
+                'email' => 'destiyani@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'bendahara'
+            ],
+            [
+                'name' => 'Verlita Liston Tirta Bahari',
+                'email' => 'verlita@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'sekretaris'
+            ],
+            [
+                'name' => 'Reni Nurhayani',
+                'email' => 'reni@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'sekretaris'
+            ],
+            [
+                'name' => 'Teguh Afriansyah',
+                'email' => 'teguh@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'sekretaris'
+            ],
+            [
+                'name' => 'Dede Muhammad 
+Wallid Arramadlani',
+                'email' => 'dede@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Rida Parida Ramdani',
+                'email' => 'rida@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Raga Kusnira',
+                'email' => 'raga@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Muhamad Ali Akbar Abil Aziz',
+                'email' => 'ali@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Eneng Tintin Chosiah',
+                'email' => 'eneng@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Muhamad Anshari Lubis',
+                'email' => 'anshari@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Rizki Safarudin',
+                'email' => 'rizkisafarudin@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Rizki Firdaus',
+                'email' => 'rizkifirdaus@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Muhammad Ikbar Barnabas',
+                'email' => 'ikbar@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+            [
+                'name' => 'Muhammad Ikhsan Fahrulloh',
+                'email' => 'ikhsan@kkn05.com',
+                'password' => bcrypt('password'),
+                'role' => 'user'
+            ],
+
         ]);
     }
 }

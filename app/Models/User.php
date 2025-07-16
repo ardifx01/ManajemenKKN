@@ -16,13 +16,12 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nama_user',
-        'email',
-        'password',
-        'telepon',
-        'role'
-    ];
+    protected $guarded = ['id'];
+
+    public function jabatan()
+    {
+        return $this->belongsTo(Jabatan::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.
