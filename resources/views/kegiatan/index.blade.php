@@ -58,11 +58,17 @@
                                 <option value="hari_ini" {{ request('filter') == 'hari_ini' ? 'selected' : '' }}>
                                     Hari ini
                                 </option>
-                                <option value="semua" {{ request('filter') == 'semua' ? 'selected' : '' }}>
-                                    Semua
+                                <option value="saya" {{ request('filter') == 'saya' ? 'selected' : '' }}>
+                                    Kegiatan Saya
+                                </option>
+                                <option value="bukan_saya" {{ request('filter') == 'bukan_saya' ? 'selected' : '' }}>
+                                    Bukan Kegiatan Saya
                                 </option>
                                 <option value="belum" {{ request('filter') == 'belum' ? 'selected' : '' }}>
                                     Belum terkait proker
+                                </option>
+                                <option value="semua" {{ request('filter') == 'semua' ? 'selected' : '' }}>
+                                    Semua
                                 </option>
                             </x-select-input>
                         </div>
@@ -79,6 +85,16 @@
                             Input Kegiatan
                         </span>
                     </button>
+
+                    @if (request('filter') == 'saya')
+                        <a href="{{ route('laporan-kegiatan-saya.xls', ['filter' => request()->filter]) }}"
+                            class="flex items-center py-2.5 px-2 md:py-2 border border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-colors duration-300 rounded-md">
+                            <i class="fi fi-rs-file-excel md:mr-2 leading-none relative top-0.5"></i>
+                            <span class="hidden md:block">
+                                Export Excel
+                            </span>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>

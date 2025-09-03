@@ -23,7 +23,9 @@
 
                 {{-- <form action="{{ route('absensi.index') }}" method="GET" class="flex items-center gap-2"> --}}
                 <div>
-                    <h1 class="text-lg">{{ $kegiatan->nama_kegiatan }}</h1>
+                    <h1 class="text-lg">{{ $kegiatan->nama_kegiatan }} -
+                        {{ optional($kegiatan->tgl_kegiatan ? Carbon\Carbon::parse($kegiatan->tgl_kegiatan) : null)->translatedFormat('l, d F Y') ?? '-' }}
+                    </h1>
                 </div>
 
 
@@ -220,8 +222,8 @@
                                         <td class="p-3">
                                             <select name="absensi[{{ $data->id }}]" id="">
                                                 <option value="H">Hadir</option>
-                                                <option value="S">Sakit</option>
                                                 <option value="I">Izin</option>
+                                                <option value="S">Sakit</option>
                                                 <option value="A">Alfa</option>
                                             </select>
                                         </td>
@@ -250,7 +252,7 @@
                                 @forelse ($absensi as $absen)
                                     <tr class="bg-white text-gray-900 border-b hover:bg-gray-100">
                                         <td class="px-2 py-3 text-center">{{ $loop->iteration }}</td>
-                                        <td class="p-3 ">{{ $absen->user->name }}</td>
+                                        <td class="p-3 ">{{ $absen->user->name ?? '-' }}</td>
                                         <td class="p-3 ">{{ $absen->user->telepon ?? '-' }}</td>
                                         <td class="p-3">
                                             @if (Auth::user()->role == 'sekretaris' || Auth::user()->role == 'admin')
@@ -259,13 +261,13 @@
                                                         {{ $absen->status == 'H' ? 'selected' : '' }}>
                                                         Hadir
                                                     </option>
-                                                    <option value="S"
-                                                        {{ $absen->status == 'S' ? 'selected' : '' }}>
-                                                        Sakit
-                                                    </option>
                                                     <option value="I"
                                                         {{ $absen->status == 'I' ? 'selected' : '' }}>
                                                         Izin
+                                                    </option>
+                                                    <option value="S"
+                                                        {{ $absen->status == 'S' ? 'selected' : '' }}>
+                                                        Sakit
                                                     </option>
                                                     <option value="A"
                                                         {{ $absen->status == 'A' ? 'selected' : '' }}>

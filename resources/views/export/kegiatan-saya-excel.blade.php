@@ -1,7 +1,8 @@
 <table>
     <thead>
         <tr>
-            <th colspan="4" align="center" style="font-weight: bold; font-size: 16px;">Laporan Kegiatan KKN Kelompok 5
+            <th colspan="4" align="center" style="font-weight: bold; font-size: 16px;">Laporan Kegiatan Individu
+                "{{ ucfirst($auth->name) }}"
             </th>
         </tr>
         <tr>

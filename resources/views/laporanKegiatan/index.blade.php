@@ -262,7 +262,7 @@
                             {{-- <th scope="col" class="p-3">Jenis Laporan</th> --}}
                             {{-- <th scope="col" class="p-3">Link Dokumentasi</th> --}}
                             <th scope="col" class="p-3">Dibuat Oleh</th>
-                            <th scope="col" class="p-3">Aksi</th>
+                            {{-- <th scope="col" class="p-3">Aksi</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -281,12 +281,12 @@
                                 <td class="p-3">{{ $data->deskripsi_kegiatan ?? '-' }}</td>
                                 <td class="p-3">{{ $data->creator->name ?? '-' }}
                                 </td>
-                                <td class="p-3">
+                                {{-- <td class="p-3">
                                     <div class="flex items-center gap-2">
                                         <x-btn-primary data-modal-target="editModal{{ $data->id }}"><i
                                                 class="fi fi-rs-eye leading-none relative top-0.5"></i></x-btn-primary>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
 
                             <!-- Modal Edit User-->

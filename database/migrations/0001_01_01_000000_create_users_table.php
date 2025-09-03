@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('nim')->nullable();
             $table->string('telepon')->nullable();
             $table->enum('role', ['admin', 'pembimbing', 'ketua', 'wakil', 'bendahara', 'sekretaris', 'user'])->default('user');
             $table->text('ttd')->nullable();

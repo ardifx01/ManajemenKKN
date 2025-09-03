@@ -119,9 +119,16 @@ class AbsensiController extends Controller
     {
         $kegiatan = LaporanKegiatan::findOrFail($id);
         $absensi = Absensi::where('laporan_kegiatan_id', $id)
+            ->join('users', 'absensis.user_id', '=', 'users.id')
+            ->select('absensis.*') // supaya hanya ambil kolom absensis + relasi
             ->with('user')
-            ->orderBy('id') // atau field lain yang sesuai
+            ->orderByRaw("CASE WHEN users.name = '-' THEN 1 ELSE 0 END ASC") // '-' di paling bawah
+            ->orderBy('users.name', 'asc') // sisanya tetap urut alfabet
             ->get();
+
+        // ->with('user')
+        // ->orderBy('id') 
+        // ->get();
 
         // dd($absensi->count()); // Cek jumlah data yang benar-benar terambil
         return view('absensi.print', compact('absensi', 'kegiatan'));

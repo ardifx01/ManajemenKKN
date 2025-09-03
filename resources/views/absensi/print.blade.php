@@ -94,7 +94,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 40px;
+            width: 55px;
             transform: translate(-50%, -50%);
             opacity: 0.8;
         }
@@ -132,6 +132,7 @@
         <thead>
             <tr>
                 <th class="no">No</th>
+                <th>NIM</th>
                 <th>Nama</th>
                 <th>No. HP</th>
                 <th colspan="2">Tanda Tangan</th>
@@ -141,6 +142,7 @@
             @for ($i = 0; $i < count($absensi); $i += 2)
                 <tr>
                     <td>{{ $i + 1 }}</td>
+                    <td class="text-center">{{ $absensi[$i]->user->nim ?? '-' }}</td>
                     <td class="text-left">{{ $absensi[$i]->user->name ?? '-' }}</td>
                     <td class="text-center">{{ $absensi[$i]->user->telepon ?? '' }}</td>
 
@@ -163,9 +165,11 @@
                 <tr>
                     @if (isset($absensi[$i + 1]))
                         <td>{{ $i + 2 }}</td>
+                        <td class="text-center">{{ $absensi[$i + 1]->user->nim ?? '-' }}</td>
                         <td class="text-left">{{ $absensi[$i + 1]->user->name ?? '-' }}</td>
                         <td class="text-center">{{ $absensi[$i + 1]->user->telepon ?? '' }}</td>
                     @else
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>

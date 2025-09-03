@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index']);
 
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+});
 
 Route::post('/contact', [KotakPesanController::class, 'store'])->name('contact.store');
 
@@ -41,6 +45,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/keuangan', KeuanganController::class);
     Route::resource('/laporan-kegiatan', LaporanKegiatanController::class);
+    Route::get('/laporankegiatan-saya/xls', [KegiatanController::class, 'xls'])->name('laporan-kegiatan-saya.xls');
     Route::get('/laporankegiatan/xls', [LaporanKegiatanController::class, 'xls'])->name('laporan-kegiatan.xls');
     Route::get('/laporankegiatan/pdf', [LaporanKegiatanController::class, 'pdf'])->name('laporan-kegiatan.pdf');
     Route::resource('/laporan-keuangan', LaporanKeuanganController::class);

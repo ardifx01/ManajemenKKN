@@ -219,7 +219,8 @@
                     <div
                         class="bg-white rounded-lg shadow-md overflow-hidden card-hover transition duration-300 hover:shadow-lg">
                         <!-- Photo Section -->
-                        <div class="h-64 bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <div
+                            class="bg-gray-100 flex items-center justify-center overflow-hidden h-80 sm:h-96 md:h-[28rem]">
                             @if ($anggota->user->foto == 'profile.png')
                                 <img src="/profile.png" alt="Foto Profil" class="h-full w-full object-cover object-top">
                             @else
@@ -227,6 +228,8 @@
                                     class="h-full w-full object-cover object-top">
                             @endif
                         </div>
+
+
 
                         <!-- Info Section -->
                         <div class="p-6 flex flex-col items-center text-center">
@@ -241,7 +244,8 @@
 
                                 @if ($anggota->user->instagram)
                                     <!-- Instagram -->
-                                    <a href="#" class="text-gray-500 hover:text-pink-600 transition-colors">
+                                    <a href="{{ $anggota->user->instagram }}"
+                                        class="text-gray-500 hover:text-pink-600 transition-colors" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"
                                             viewBox="0 0 24 24">
                                             <path
@@ -252,7 +256,8 @@
 
                                 @if ($anggota->user->tiktok)
                                     <!-- TikTok -->
-                                    <a href="#" class="text-gray-500 hover:text-black transition-colors">
+                                    <a href="{{ $anggota->user->tiktok }}"
+                                        class="text-gray-500 hover:text-black transition-colors" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"
                                             viewBox="0 0 24 24">
                                             <path
@@ -263,7 +268,8 @@
 
                                 @if ($anggota->user->facebook)
                                     <!-- Facebook -->
-                                    <a href="#" class="text-gray-500 hover:text-blue-800 transition-colors">
+                                    <a href="{{ $anggota->user->facebook }}"
+                                        class="text-gray-500 hover:text-blue-800 transition-colors" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"
                                             viewBox="0 0 24 24">
                                             <path
@@ -274,7 +280,8 @@
 
                                 @if ($anggota->user->web)
                                     <!-- Website (Globe Icon) -->
-                                    <a href="#" class="text-gray-500 hover:text-blue-500 transition-colors">
+                                    <a href="{{ $anggota->user->web }}"
+                                        class="text-gray-500 hover:text-blue-500 transition-colors" target="_blank">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -327,7 +334,8 @@
                                     };
                                 @endphp
 
-                                <span class="ms-auto px-3 py-1 rounded-full text-sm font-semibold {{ $badgeColor }}">
+                                <span
+                                    class="ms-auto px-3 py-1 rounded-full text-sm font-semibold {{ $badgeColor }}">
                                     {{ ucfirst($status) }}
                                 </span>
                             </div>
@@ -384,7 +392,7 @@
                         <h3 class="text-xl font-semibold text-primary mb-4">Informasi Kontak</h3>
                         <div class="space-y-4">
                             <div class="flex items-start">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary mr-4 mt-1"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11 text-primary mr-4 mt-1"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

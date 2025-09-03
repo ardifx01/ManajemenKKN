@@ -7,6 +7,7 @@ use App\Models\LaporanKegiatan;
 use App\Models\Proker;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LaporanKegiatanController extends Controller
@@ -67,6 +68,7 @@ class LaporanKegiatanController extends Controller
                 ->get();
         }
 
+        Log::info('PDF PUBLIC PATH: ' . config('dompdf.public_path'));
         $pdf = Pdf::loadView('export.kegiatan-pdf', ['data' => $kegiatan]);
         return $pdf->download('laporan-kegiatan.pdf');
     }

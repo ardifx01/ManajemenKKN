@@ -46,7 +46,7 @@ class UserManajemenController extends Controller
         try {
             $validatedData = $request->validate([
                 'name'        => 'required|string|max:100',
-                'prodi'       => 'required|in:Manajemen Informatika,Manajemen Pemasaran,Manajemen Keuangan & Perbankan,Administrasi Bisnis',
+                'prodi'       => 'nullable|in:Manajemen Informatika,Manajemen Pemasaran,Manajemen Keuangan & Perbankan,Administrasi Bisnis',
                 'email'       => 'required|email|unique:users,email',
                 'password'    => 'required|confirmed|min:8',
                 'telepon'     => 'nullable|numeric|digits_between:11,13|unique:users,telepon',
@@ -55,7 +55,6 @@ class UserManajemenController extends Controller
                 'role'        => 'required|in:admin,pembimbing,ketua,wakil,bendahara,sekretaris,user',
             ], [
                 'name.required'       => 'Nama tidak boleh kosong',
-                'prodi.required'      => 'Program Studi tidak boleh kosong',
                 'prodi.in'            => 'Program Studi tidak valid',
                 'email.required'      => 'Email tidak boleh kosong',
                 'email.unique'        => 'Email telah terdaftar',

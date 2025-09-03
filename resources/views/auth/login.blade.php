@@ -6,7 +6,7 @@
 
         <!-- Email Address -->
         <div class="space-y-2">
-            <x-label for="email" :value="__('Email')" class="text-gray-700 font-medium" />
+            <x-label for="email" :value="__('Email')" required />
             <x-text-input id="email"
                 class="block w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200"
                 type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
@@ -15,7 +15,7 @@
 
         <!-- Password -->
         <div class="space-y-2">
-            <x-label for="password" :value="__('Password')" class="text-gray-700 font-medium" />
+            <x-label for="password" :value="__('Password')" required />
 
             <x-text-input id="password"
                 class="block w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm transition duration-200"

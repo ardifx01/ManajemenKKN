@@ -15,13 +15,16 @@
 
 <div class="flex items-center mr-4">
     <!-- Garis kiri -->
-    @if (request()->is('kegiatan*') || request()->is('absensi*') || request()->is('notulensi/generate*'))
+    @if (request()->is('kegiatan*') ||
+            request()->is('absensi*') ||
+            request()->is('notulensi/generate*') ||
+            request()->is('berita_acara/generate*'))
         <div class="w-[5px] h-12 bg-indigo-700 rounded-r-md"></div>
     @endif
 
     <!-- Card Menu -->
     <a href="{{ route('kegiatan.index') }}"
-        class="flex items-center flex-1 px-4 py-3 {{ request()->is('kegiatan*') || request()->is('absensi*') || request()->is('notulensi/generate*') ? 'bg-indigo-100 text-indigo-800' : 'text-gray-500 hover:bg-gray-50' }} rounded-lg ml-3">
+        class="flex items-center flex-1 px-4 py-3 {{ request()->is('kegiatan*') || request()->is('absensi*') || request()->is('notulensi/generate*') || request()->is('berita_acara/generate*') ? 'bg-indigo-100 text-indigo-800' : 'text-gray-500 hover:bg-gray-50' }} rounded-lg ml-3">
         <i class="fi fi-rs-journal-alt text-lg leading-none relative top-0.5"></i>
 
         <span class="ml-3 font-medium">Input Kegiatan</span>

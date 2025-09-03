@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KegiatanSayaExport;
 use App\Models\LaporanKegiatan;
 use App\Models\Proker;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KegiatanController extends Controller
 {
@@ -21,7 +23,7 @@ class KegiatanController extends Controller
         $perPage = $request->query('per_page', 10);
         $search = $request->query('search');
 
-        $kegiatan = LaporanKegiatan::with('creator', 'absensi', 'notulensi')
+        $kegiatan = LaporanKegiatan::with('creator', 'absensi', 'notulensi', 'berita_acara', 'proker')
             ->when(request('filter') === 'hari_ini' || !request()->has('filter'), function ($query) {
                 // Default: hanya data hari ini
                 $query->whereDate('created_at', today());
@@ -30,8 +32,19 @@ class KegiatanController extends Controller
                 // Jika filter 'belum', ambil yang proker_id null
                 $query->whereNull('proker_id');
             })
+            ->when(request('filter') === 'saya', function ($query) {
+                $query->whereHas('absensi', function ($q) {
+                    $q->where('user_id', Auth::user()->id)
+                        ->where('status', 'H');
+                });
+            })
+            ->when(request('filter') === 'bukan_saya', function ($query) {
+                $query->whereHas('absensi', function ($q) {
+                    $q->where('user_id', Auth::user()->id)
+                        ->whereIn('status', ['S', 'I', 'A']);
+                });
+            })
             ->when(request('filter') === 'semua', function ($query) {
-                // Jika filter 'belum', ambil yang proker_id null
                 return $query;
             })
             // Pencarian
@@ -41,6 +54,7 @@ class KegiatanController extends Controller
                         ->orWhere('lokasi_kegiatan', 'like', '%' . $search . '%');
                 });
             })
+            ->orderBy('tgl_kegiatan', 'desc')
             ->latest()
             ->paginate($perPage)
             ->appends(request()->query());
@@ -51,6 +65,18 @@ class KegiatanController extends Controller
 
         return view('kegiatan.index', compact('kegiatan', 'proker', 'pemimpin_rapat'))
             ->with('i', (request()->input('page', 1) - 1) * $perPage);
+    }
+
+    public function xls()
+    {
+        $kegiatansaya = LaporanKegiatan::with('creator')
+            ->whereHas('absensi', function ($q) {
+                $q->where('user_id', Auth::id())
+                    ->where('status', 'H');
+            })
+            ->get();
+
+        return Excel::download(new KegiatanSayaExport($kegiatansaya), 'laporan-kegiatan-saya.xlsx');
     }
 
     /**
@@ -76,7 +102,7 @@ class KegiatanController extends Controller
                 'waktu_selesai'           => 'nullable|date_format:H:i|after_or_equal:waktu_mulai',
                 'lokasi_kegiatan'         => 'required|string|max:255',
                 'deskripsi_kegiatan'      => 'required|string|max:1000',
-                'hasil_kegiatan'          => 'nullable|string|max:1000',
+                'hasil_kegiatan'          => 'nullable|string',
                 'kendala_kegiatan'        => 'nullable|string|max:1000',
                 // 'jenis_laporan_kegiatan'  => 'required|in:harian,mingguan',
                 'link_dokumentasi_foto' => 'nullable|url',
@@ -144,7 +170,7 @@ class KegiatanController extends Controller
                 'waktu_selesai'           => 'nullable|date_format:H:i|after_or_equal:waktu_mulai',
                 'lokasi_kegiatan'         => 'required|string|max:255',
                 'deskripsi_kegiatan'      => 'required|string|max:1000',
-                'hasil_kegiatan'          => 'nullable|string|max:1000',
+                'hasil_kegiatan'          => 'nullable|string',
                 'kendala_kegiatan'        => 'nullable|string|max:1000',
                 // 'jenis_laporan_kegiatan'  => 'required|in:harian,mingguan',
                 'link_dokumentasi_foto' => 'nullable|url',
